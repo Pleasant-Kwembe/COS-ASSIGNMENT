@@ -53,3 +53,8 @@ def new_file(self):
                 self.file_path = file_path
                 self.root.title(f"Simple Notepad - {file_path}")
 
+if __name__ == "__main__":
+    root = tk.Tk()
+    notepad = Notepad(root)
+    root.geometry("600x400")
+    root.mainloop()
