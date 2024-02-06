@@ -25,3 +25,31 @@ class Notepad:
 def new_file(self):
         self.text_area.delete(1.0, tk.END)
         self.root.title("Simple Notepad")
+    def open_file(self):
+        file_path = filedialog.askopenfilename(defaultextension=".txt",
+                                                 filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")])
+        if file_path:
+            with open(file_path, "r") as file:
+                content = file.read()
+                self.text_area.delete(1.0, tk.END)
+                self.text_area.insert(tk.END, content)
+                self.root.title(f"Simple Notepad - {file_path}")
+
+    def save_file(self):
+        if hasattr(self, 'file_path'):
+            content = self.text_area.get(1.0, tk.END)
+            with open(self.file_path, "w") as file:
+                file.write(content)
+        else:
+            self.save_file_as()
+
+    def save_file_as(self):
+        file_path = filedialog.asksaveasfilename(defaultextension=".txt",
+                                                   filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")])
+        if file_path:
+            content = self.text_area.get(1.0, tk.END)
+            with open(file_path, "w") as file:
+                file.write(content)
+                self.file_path = file_path
+                self.root.title(f"Simple Notepad - {file_path}")
+
